@@ -1,0 +1,9 @@
+ul { margin: 0px; padding: 0px; text-align: left; list-style: none }
+li { height: 20px }
+#container { width: 1000px; border: 1px solid black }
+#vuln_cat { background-color: #eeeeee; text-align: center; font-size: 16pt; font-weight: bold }
+#vuln_name { width: 400px; float: left; border-top: 1px solid black; min-height: 20px }
+#host_list { width: 600px; float: left; border-top: 1px solid black; min-height: 20px }
+#hostname { width: 300px; float: left; min-height: 20px; text-align: center }
+#details { width: 300px; float: left; min-height: 20px }
+#clear { clear: both }
