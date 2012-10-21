@@ -34,6 +34,7 @@ vuln_categories = [
 ('certinfo', 'Certificate information'),
 ('reneg', 'Session renegotiation'),
 ('resum', 'Session resumption'),
+('compr', 'SSL compression'),
 ]
 
 # Initialyze the dictionnary
@@ -58,35 +59,35 @@ vuln_dictionary['sslv2'].vuln_list.append(Vuln(
     Vuln.checkWhitelist,
     [],
     ['name', 'keySize'],
-    'SSL v2 is Enabled'))
+    'SSL v2 is enabled'))
 vuln_dictionary['sslv3'].vuln_list.append(Vuln(
     'target.sslv3.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak Cipher Suites for SSL v3 are Supported'))
+    'Weak cipher suites for SSL v3 are supported'))
 vuln_dictionary['tlsv1'].vuln_list.append(Vuln(
     'target.tlsv1.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak Cipher Suites for TLS v1 are Supported'))
+    'Weak cipher suites for TLS v1 are supported'))
 vuln_dictionary['tlsv1_1'].vuln_list.append(Vuln(
     'target.tlsv1_1.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak Cipher Suites for TLS v1.1 are Supported'))
+    'Weak cipher suites for TLS v1.1 are supported'))
 vuln_dictionary['tlsv1_2'].vuln_list.append(Vuln(
     'target.tlsv1_2.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak Cipher Suites for TLS v1.2 are Supported:'))
+    'Weak cipher suites for TLS v1.2 are supported:'))
 
 # Certificate info
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
@@ -95,35 +96,35 @@ vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     Vuln.isLessThan,
     1024,
     [],
-    'Public Key Size is Too Small'))
+    'Public key size is too small'))
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     'target.certinfo.certificate.subjectPublicKeyInfo',
     'publicKeyAlgorithm',
     Vuln.checkBlacklist,
     ['md2WithRSAEncryption', 'md5WithRSAEncryption'], # TODO, make it a whitelist
     [],
-    'Certificate\'s Public Key Algorithm is Weak'))
+    'Certificate\'s public key algorithm is weak'))
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     'target.certinfo.certificate',
     'isTrustedByMozillaCAStore',
     Vuln.isTrue,
     None,
     [],
-    "Certificate is Not Trusted"))
+    "Certificate is not trusted"))
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     'target.certinfo.certificate.validity',
     'notAfter',
     Vuln.checkDate,
     'notAfter',
     [],
-    "Certificate is Expired"))
+    "Certificate is expired"))
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     'target.certinfo.certificate.validity',
     'notBefore',
     Vuln.checkDate,
     'notBefore',
     [],
-    "Certificate is Not Valid yet"))
+    "Certificate is not valid yet"))
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     'target.certinfo.certificate.extensions',
     'X509v3BasicConstraints',
@@ -137,7 +138,7 @@ vuln_dictionary['certinfo'].vuln_list.append(Vuln(
     Vuln.isTrue,
     None,
     [],
-    'Certificate\'s Hostname Mismatch'))
+    'Certificate\'s hostname mismatch'))
 
 # Session renegotiation
 vuln_dictionary['reneg'].vuln_list.append(Vuln(
@@ -146,14 +147,14 @@ vuln_dictionary['reneg'].vuln_list.append(Vuln(
     Vuln.isFalse,
     None,
     [],
-    'Client can Initiate Renegotiation'))
+    'Client can initiate renegotiation'))
 vuln_dictionary['reneg'].vuln_list.append(Vuln(
     'target.reneg.sessionRenegotiation',
     'isSecure',
     Vuln.isTrue,
     None,
     [],
-    'Renegotation is Not Secure'))
+    'Renegotation is not secure'))
 
 # Session resumption
 vuln_dictionary['resum'].vuln_list.append(Vuln(
@@ -162,11 +163,20 @@ vuln_dictionary['resum'].vuln_list.append(Vuln(
     Vuln.isTrue,
     None,
     [],
-    'Session ID is Not Supported'))
+    'Session ID is not supported'))
 vuln_dictionary['resum'].vuln_list.append(Vuln(
     'target.resum.sessionResumptionWithTLSTickets',
     'isSupported',
     Vuln.isTrue,
     None,
     [],
-    'TLS Ticket is Not supported'))
+    'TLS ticket is not supported'))
+
+# Compression
+vuln_dictionary['compr'].vuln_list.append(Vuln(
+    'target.compression.compression',
+    'isSupported',
+    Vuln.isFalse,
+    None,
+    [],
+    'SSL compression is supported'))
