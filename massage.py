@@ -26,6 +26,7 @@ import copy
 import datetime
 from massage.xml2obj import xml2obj
 from massage.HTMLReport import HTMLReport
+from massage.LaTeXReport import LaTeXReport
 from massage.Vuln import Vuln, VulnCategory
 from massage.vulns import vuln_categories, vuln_dictionary
 from xml.etree import ElementTree 
@@ -52,6 +53,13 @@ parser.add_option(
         'HTML_OUT should be the name of the file to write to.'),
     dest='html_out',
     default=None)
+# LaTeX output
+parser.add_option(
+    '--latex_out',
+    help= (
+        'Output the results formatted in a LaTeX tabular. '
+        'LATEX_OUT should be the name of the file to write to.'),
+    default=None)
 
 def main():
 
@@ -60,7 +68,7 @@ def main():
     if args.xml_in == None:
         print 'Command line error: you need to specify the name of the xml input file'
         return
-    if args.html_out == None:
+    if args.html_out == None and args.latex_out == None:
         print 'Command line error: you need to specify the name of the html output file'
         return
 
@@ -75,13 +83,16 @@ def main():
         for vuln in vuln_dictionary[vuln_category].vuln_list:
             vuln.check(results)
 
-    # Output the results to an HTML file
-    report = HTMLReport()
+    # Output the results to a file
+    if not args.html_out == None:
+        report = HTMLReport(args.html_out)
+    elif not args.latex_out == None:
+        report = LaTeXReport(args.latex_out)
     for vuln_category in vuln_categories:
-        report.vulnCategory2HTML(vuln_dictionary[vuln_category[0]].name)
+        report.vulnCategoryOut(vuln_dictionary[vuln_category[0]].name)
         for vuln in vuln_dictionary[vuln_category[0]].vuln_list:
-            report.vuln2HTML(vuln)
-    report.write(args.html_out)
+            report.vulnOut(vuln)
+    report.write()
 
 if __name__ == "__main__":
     main()

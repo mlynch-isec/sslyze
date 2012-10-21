@@ -25,7 +25,11 @@ from xml.etree import ElementTree
 
 class HTMLReport():
 
-    def __init__(self):
+    filename = ''
+
+    def __init__(self, filename):
+
+        self.filename = filename
 
         # HTML Headers
         self.root = ElementTree.Element('html')
@@ -42,12 +46,12 @@ class HTMLReport():
         # Body
         self.body = ElementTree.SubElement(self.root, 'body')
 
-    def vulnCategory2HTML(self, vuln_category):
+    def vulnCategoryOut(self, vuln_category):
         self.container = ElementTree.SubElement(self.body, 'div', attrib={'id':'container'})
         vuln_cat_div = ElementTree.SubElement(self.container, 'div', attrib={'id':'vuln_cat'})
         vuln_cat_div.text = vuln_category
 
-    def vuln2HTML(self, vuln):
+    def vulnOut(self, vuln):
         if vuln.vulnerable_hosts:
             vuln_name_div = ElementTree.SubElement(self.container, 'div', attrib={'id':'vuln_name'})
             vuln_name_div.text = vuln.description
@@ -63,6 +67,6 @@ class HTMLReport():
             clear_div = ElementTree.SubElement(self.container, 'div', attrib={'id':'clear'})
             clear_div.text = ' '
 
-    def write(self, filename):
+    def write(self):
         tree = ElementTree.ElementTree(self.root)
-        tree.write(filename)
+        tree.write(self.filename)
