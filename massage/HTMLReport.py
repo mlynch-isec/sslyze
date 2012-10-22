@@ -21,6 +21,8 @@
 #   along with SSLyze.  If not, see <http://www.gnu.org/licenses/>.
 #-------------------------------------------------------------------------------
 
+import os
+import sys
 from xml.etree import ElementTree
 
 class HTMLReport():
@@ -38,10 +40,11 @@ class HTMLReport():
         title.text = 'SSLyze Results'
         style = ElementTree.SubElement(head, 'style')
         try:
-            with open('massage/style.css') as f:
+            css_filename = os.path.abspath(os.path.dirname(sys.argv[0])) + '/massage/style.css'
+            with open(css_filename) as f:
                 style.text = f.read()
         except IOError, e:
-            print 'Ooops'
+            print 'IOError. can\'t open %s' % css_filename
 
         # Body
         self.body = ElementTree.SubElement(self.root, 'body')
