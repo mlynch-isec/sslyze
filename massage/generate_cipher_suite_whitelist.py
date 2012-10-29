@@ -26,7 +26,7 @@ import subprocess
 import sys
 
 # String representing the accepted cipher suites in OpenSSL (thanks Alban)
-magic_string = "RC4-SHA:HIGH:!ADH:!CAMELLIA"
+magic_string = "RC4-SHA:RC4-MD5:HIGH:!ADH:!CAMELLIA"
 
 local_openssl_version = subprocess.check_output(["openssl", "version"]).rstrip("\n").split(" ")[1]
 # Don't overwrite the whitelist of cipher suites if the local version of OpenSSL
