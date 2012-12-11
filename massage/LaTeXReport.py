@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-------------------------------------------------------------------------------
 # Name:         LaTeXReport.py
-# Purpose:      Create a LaTeX tabular
+# Purpose:      Create a LaTeX longtable
 #
 # Author:       loic
 #
@@ -30,7 +30,7 @@ class LaTeXReport():
         try:
             with open(filename, 'wt') as f:
                 # Tabular Headers
-                f.write('\\begin{tabular}{|m{.50\\textwidth}|m{.25\\textwidth}|m{.25\\textwidth}}\n')
+                f.write('\\begin{longtable}{|m{.35\\textwidth}|m{.30\\textwidth}|m{.35\\textwidth}}\n')
         except IOError, e:
             print 'Failed to create file %s' % self.filename
 
@@ -55,9 +55,10 @@ class LaTeXReport():
                 count = count + 1
                 line += host
                 line += ' & '
+                line += '\\begin{tabular}{|m{1\\textwidth}}'
                 for detail in vuln.vulnerable_hosts[host]:
-                    line += detail
-                line += '\\\\\n'
+                    line += '%s \\\\ ' % detail
+                line += '\\end{tabular} \\\\\n'
         try:
             with open(self.filename, 'awt') as f:
                 f.write(line)
@@ -67,6 +68,6 @@ class LaTeXReport():
     def write(self):
         try:
             with open(self.filename, 'awt') as f:
-                f.write('\\end{tabular}\n')
+                f.write('\\end{longtable}\n')
         except IOError, e:
             print 'Failed to write in file %s' % self.filename
