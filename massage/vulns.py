@@ -66,28 +66,28 @@ vuln_dictionary['sslv3'].vuln_list.append(Vuln(
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak cipher suites for SSL v3 are supported'))
+    'Weak cipher suites are supported'))
 vuln_dictionary['tlsv1'].vuln_list.append(Vuln(
     'target.tlsv1.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak cipher suites for TLS v1 are supported'))
+    'Weak cipher suites are supported'))
 vuln_dictionary['tlsv1_1'].vuln_list.append(Vuln(
     'target.tlsv1_1.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak cipher suites for TLS v1.1 are supported'))
+    'Weak cipher suites are supported'))
 vuln_dictionary['tlsv1_2'].vuln_list.append(Vuln(
     'target.tlsv1_2.acceptedCipherSuites.cipherSuite',
     'name',
     Vuln.checkWhitelist,
     cipher_suite_whitelist,
     ['name', 'keySize'],
-    'Weak cipher suites for TLS v1.2 are supported:'))
+    'Weak cipher suites are supported'))
 
 # Certificate info
 vuln_dictionary['certinfo'].vuln_list.append(Vuln(
