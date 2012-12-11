@@ -55,7 +55,7 @@ class LaTeXReport():
                 count = count + 1
                 line += host
                 line += ' & '
-                line += '\\begin{tabular}{|m{1\\textwidth}}'
+                line += '\\begin{tabular}{l}'
                 for detail in vuln.vulnerable_hosts[host]:
                     line += '%s \\\\ ' % detail
                 line += '\\end{tabular} \\\\\n'
