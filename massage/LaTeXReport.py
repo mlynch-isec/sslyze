@@ -28,7 +28,7 @@ class LaTeXReport():
     def __init__(self, filename):
         self.filename = filename
         try:
-            with open(filename, 'wt') as f:
+            with open(filename, 'w') as f:
                 # Tabular Headers
                 f.write('\\begin{longtable}{|m{.35\\textwidth}|m{.30\\textwidth}|m{.35\\textwidth}}\n')
         except IOError, e:
@@ -36,7 +36,7 @@ class LaTeXReport():
 
     def vulnCategoryOut(self, vuln_category):
         try:
-            with open(self.filename, 'awt') as f:
+            with open(self.filename, 'a') as f:
                 f.write('\\multicolumn{3}{|c|}{\\cellcolor{nccblue}\\color{white}\\bf %s}\\\\\n' % vuln_category)
         except IOError, e:
             print 'Failed to write file %s' % self.filename
@@ -60,14 +60,14 @@ class LaTeXReport():
                     line += '%s \\\\ ' % detail
                 line += '\\end{tabular} \\\\\n'
         try:
-            with open(self.filename, 'awt') as f:
+            with open(self.filename, 'a') as f:
                 f.write(line)
         except IOError, e:
             print ' Failed to write in file %s' % self.filename
 
     def write(self):
         try:
-            with open(self.filename, 'awt') as f:
+            with open(self.filename, 'a') as f:
                 f.write('\\end{longtable}\n')
         except IOError, e:
             print 'Failed to write in file %s' % self.filename
